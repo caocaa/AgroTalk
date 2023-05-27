@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'AddArticlePage.dart';
 
 class ArticleUserPage extends StatefulWidget {
   const ArticleUserPage({super.key});
@@ -375,7 +376,10 @@ class _ArticleUserPageState extends State<ArticleUserPage> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color.fromARGB(255, 79, 125, 67),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const AddArticlePage()));
+        },
         child: Icon(
           Icons.add,
         ),

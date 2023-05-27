@@ -3,6 +3,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:image_card/image_card.dart';
 
+import 'NewsDetailPage.dart';
+
 class NewsPage extends StatefulWidget {
   const NewsPage({super.key});
 
@@ -85,18 +87,30 @@ class _NewsPageState extends State<NewsPage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: TransparentImageCard(
-                        width: 200,
-                        imageProvider: AssetImage('assets/image/artikel b.jpg'),
-                        tags: [
-                          Text(
-                            'Pupuk',
-                            style: TextStyle(color: Colors.white, fontSize: 10),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const NewsDetailPage(),
+                            ),
+                          );
+                        },
+                        child: TransparentImageCard(
+                          width: 200,
+                          imageProvider:
+                              AssetImage('assets/image/artikel b.jpg'),
+                          tags: [
+                            Text(
+                              'Pupuk',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 10),
+                            ),
+                          ],
+                          title: Text(
+                            'Rekomendasi pupuk untuk pohon mangga',
+                            style: TextStyle(color: Colors.white, fontSize: 14),
                           ),
-                        ],
-                        title: Text(
-                          'Rekomendasi pupuk untuk pohon mangga',
-                          style: TextStyle(color: Colors.white, fontSize: 14),
                         ),
                       ),
                     ),
