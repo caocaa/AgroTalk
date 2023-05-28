@@ -114,20 +114,32 @@ class _NewsPageState extends State<NewsPage> {
                         ),
                       ),
                     ),
-                    Padding(
+               Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: TransparentImageCard(
-                        width: 200,
-                        imageProvider: AssetImage('assets/image/artikel c.jpg'),
-                        tags: [
-                          Text(
-                            'Pupuk',
-                            style: TextStyle(color: Colors.white, fontSize: 10),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const NewsDetailPage(),
+                            ),
+                          );
+                        },
+                        child: TransparentImageCard(
+                          width: 200,
+                          imageProvider:
+                              AssetImage('assets/image/artikel c.jpg'),
+                          tags: [
+                            Text(
+                              'Pupuk',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 10),
+                            ),
+                          ],
+                          title: Text(
+                            'Rekomendasi pupuk untuk pohon mangga',
+                            style: TextStyle(color: Colors.white, fontSize: 14),
                           ),
-                        ],
-                        title: Text(
-                          'Rekomendasi pupuk untuk pohon mangga',
-                          style: TextStyle(color: Colors.white, fontSize: 14),
                         ),
                       ),
                     ),
