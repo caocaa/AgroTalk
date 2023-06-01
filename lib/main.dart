@@ -1,4 +1,5 @@
 import 'package:agrotalk/Pages/SplashScreenPage.dart';
+import 'package:agrotalk/Pages/loginPage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Lato',
       ),
-      home: const SplashScreenPage(),
+      home: const LoginPage(),
     );
   }
 }
