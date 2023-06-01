@@ -5,11 +5,6 @@ import 'package:agrotalk/models/api_response.dart';
 import 'package:agrotalk/models/user.dart';
 import 'package:agrotalk/services/user_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:agrotalk/Pages/User%20Page/LandingPageUser.dart';
-import 'package:agrotalk/models/api_response.dart';
-import 'package:agrotalk/models/user.dart';
-import 'package:agrotalk/services/user_service.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'Admin Page/HomePage.dart';
 import 'package:flutter/material.dart';
 
@@ -103,32 +98,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-                child: Form(
-                  key: formkey,
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        controller: email,
-                        validator: (val) =>
-                            val!.isEmpty ? 'Invalid email address' : null,
-                        decoration: const InputDecoration(
-                          hintText: 'Email',
-                        ),
-                      ),
-                      TextFormField(
-                        obscureText: true,
-                        controller: password,
-                        validator: (val) => val!.length < 6
-                            ? 'Required at least 6 chars'
-                            : null,
-                        decoration: const InputDecoration(
-                          hintText: 'Password',
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
                 child: Form(
                   key: formkey,
                   child: Column(
