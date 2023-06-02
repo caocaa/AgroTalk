@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:agrotalk/Pages/User%20Page/LandingPageUser.dart';
 import 'package:agrotalk/Pages/loginPage.dart';
-import 'package:agrotalk/constant.dart';
 import 'package:agrotalk/models/api_response.dart';
 import 'package:flutter/material.dart';
 import 'package:agrotalk/services/user_service.dart';

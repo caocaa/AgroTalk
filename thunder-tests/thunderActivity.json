@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "_id": "732f3799-87f6-46cb-a369-5480fd679892",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://192.168.100.60:8000/api/topics",
+    "url": "http://192.168.100.60:8000/api/topics",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2023-06-02T01:23:50.292Z",
+    "modified": "2023-06-02T01:30:08.808Z",
+    "headers": [
+      {
+        "name": "token",
+        "value": ""
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\"nama_topik\":\"bibit\"}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "j8SD3fxF3czg5kmzbX5NwhbhtKpT4UHq4xFTVquf"
+    },
+    "tests": []
+  }
+]

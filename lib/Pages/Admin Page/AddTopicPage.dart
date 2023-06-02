@@ -1,6 +1,8 @@
 import 'package:agrotalk/Pages/Admin%20Page/HomePage.dart';
 import 'package:agrotalk/Pages/Admin%20Page/LandingPage.dart';
+import 'package:agrotalk/services/topic_service.dart';
 import 'package:flutter/material.dart';
+import 'package:agrotalk/models/topic.dart';
 import 'TopicsModel.dart';
 
 class AddTopicPage extends StatefulWidget {
@@ -11,12 +13,25 @@ class AddTopicPage extends StatefulWidget {
 }
 
 class _AddTopicPageState extends State<AddTopicPage> {
-  final List<TopicsModel> _topicsList = [];
-  final TextEditingController _topicsText = TextEditingController();
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  TextEditingController nama_topik = TextEditingController();
+  bool loading = false;
 
-  void deleteTopics(String id) {
+  void addTopic() {
     setState(() {
-      _topicsList.removeWhere((element) => element.id == id);
+      loading = true;
+    });
+    createTopic(nama_topik.text).then((value) {
+      setState(() {
+        if (value != "Null") {
+          print("Topik telah ditambahkan");
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => LandingPage()),
+              (route) => false);
+        } else {
+          print("Tambahkan topik baru");
+        }
+      });
     });
   }
 
@@ -78,10 +93,20 @@ class _AddTopicPageState extends State<AddTopicPage> {
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
-                                child: TextField(
-                                  controller: _topicsText,
-                                  decoration: InputDecoration(
-                                      hintText: "Tambahkan topik baru"),
+                                child: Form(
+                                  key: formkey,
+                                  child: Column(
+                                    children: [
+                                      TextFormField(
+                                        validator: (val) => val!.length < 3
+                                            ? 'Required at least 3 chars'
+                                            : null,
+                                        controller: nama_topik,
+                                        decoration: InputDecoration(
+                                            hintText: "Tambahkan topik baru"),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -98,18 +123,12 @@ class _AddTopicPageState extends State<AddTopicPage> {
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     onPressed: () {
-                                      setState(() {
-                                        _topicsList.add(TopicsModel(
-                                            id: DateTime.now().toString(),
-                                            name: _topicsText.text));
-                                        _topicsText.text = '';
-                                      });
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //     builder: (context) => const LandingPage(),
-                                      //   ),
-                                      // );
+                                      if (formkey.currentState!.validate()) {
+                                        setState(() {
+                                          loading = true;
+                                          addTopic();
+                                        });
+                                      }
                                     },
                                     color: const Color(0xFF4F7D43),
                                     textColor: Colors.white,
@@ -123,31 +142,6 @@ class _AddTopicPageState extends State<AddTopicPage> {
                                   ),
                                 ],
                               ),
-                            ),
-                            Wrap(
-                              spacing: 4.0,
-                              runSpacing: 4.0,
-                              children: _topicsList
-                                  .map((topics) => Chip(
-                                        label: Text(
-                                          topics.name,
-                                          style: TextStyle(
-                                            fontFamily: 'Lato',
-                                            fontSize: 10,
-                                            fontStyle: FontStyle.italic,
-                                          ),
-                                        ),
-                                        backgroundColor: Color(0xFFA9B489),
-                                        deleteIcon: Icon(
-                                          Icons.cancel_outlined,
-                                          color: const Color(0xFF4F7D43),
-                                          size: 15,
-                                        ),
-                                        onDeleted: () {
-                                          deleteTopics(topics.id);
-                                        },
-                                      ))
-                                  .toList(),
                             ),
                           ],
                         ),

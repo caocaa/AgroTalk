@@ -42,30 +42,6 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  // void _loginUser() async {
-  //   ApiResponse response = await login(email.text, password.text);
-  //   return print(response.data.toString());
-  //   if (response.error == null) {
-  //     _saveAndRedirectToLandingPageUser(response.data as User);
-  //   } else {
-  //     setState(() {
-  //       loading = false;
-  //     });
-  //     print(response.error);
-  //     ScaffoldMessenger.of(context)
-  //         .showSnackBar(SnackBar(content: Text('${response.error}')));
-  //   }
-  // }
-
-  // void _saveAndRedirectToLandingPageUser(User user) async {
-  //   SharedPreferences pref = await SharedPreferences.getInstance();
-  //   await pref.setString('token', user.token ?? '');
-  //   await pref.setInt('id', user.id ?? 0);
-  //   Navigator.of(context).pushAndRemoveUntil(
-  //       MaterialPageRoute(builder: (context) => LandingPageUser()),
-  //       (route) => false);
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -136,7 +112,6 @@ class _LoginPageState extends State<LoginPage> {
                       setState(() {
                         loading = true;
                         getRoleLogin();
-                        //_loginUser();
                       });
                     }
                   },
