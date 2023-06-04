@@ -74,36 +74,24 @@ Future iniLogin(String email, String password) async {
   }
 }
 
-// User
-// Future<ApiResponse> getUserDetail() async {
-// ApiResponse apiResponse = ApiResponse();
-//   try {
-//     String token = await getToken();
-//     final response = await http.get(Uri.parse(userURL), headers: {
-//       'Accept': 'application/json',
-//       'Authorization': 'Bearer $token'
-//     });
+// User details
 
-//     switch (response.statusCode) {
-//       case 200:
-//         apiResponse.data = User.fromJson(jsonDecode(response.body));
-//         break;
-//       case 422:
-//         final errors = jsonDecode(response.body)['errors'];
-//         apiResponse.error = errors[errors.keys.elementAt(0)][0];
-//         break;
-//       case 403:
-//         apiResponse.error = jsonDecode(response.body)['message'];
-//         break;
-//       default:
-//         apiResponse.error = somethingWentWrong;
-//         break;
-//     }
-//   } catch (e) {
-//     apiResponse.error = serverError;
-//   }
-//   return apiResponse;
-// }
+Future getUser() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final String? action = prefs.getString('id');
+  try {
+    var url = "http://192.168.186.188:8000/api/user";
+    var token = await getToken();
+    var hasil = await http.get(Uri.parse(url), headers: {
+      "Accept": "Application/Json",
+      "Authorization": 'Bearer $token'
+    });
+    print(json.decode(hasil.body));
+    return json.decode(hasil.body);
+  } catch (e) {
+    print(e.toString());
+  }
+}
 
 //get token
 Future<String> getToken() async {

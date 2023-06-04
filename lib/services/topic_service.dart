@@ -57,7 +57,6 @@ Future getTopics() async {
       "Accept": "Application/Json",
       "Authorization": 'Bearer $token'
     });
-    print(json.decode(hasil.body));
     return json.decode(hasil.body);
   } catch (e) {
     print(e.toString());

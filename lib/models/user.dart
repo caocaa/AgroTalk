@@ -58,17 +58,49 @@ class LoginModel {
       };
 }
 
+DetailUserModel detailUserModelFromJson(String str) =>
+    DetailUserModel.fromJson(json.decode(str));
+
+String detailUserModelToJson(DetailUserModel data) =>
+    json.encode(data.toJson());
+
+class DetailUserModel {
+  bool success;
+  String message;
+  Data data;
+
+  DetailUserModel({
+    required this.success,
+    required this.message,
+    required this.data,
+  });
+  factory DetailUserModel.fromJson(Map<String, dynamic> json) =>
+      DetailUserModel(
+        success: json["success"],
+        message: json["message"],
+        data: Data.fromJson(json["data"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "success": success,
+        "message": message,
+        "data": data.toJson(),
+      };
+}
+
 class Data {
   String token;
   String name;
   String email;
   String role;
+  //String image;
 
   Data({
     required this.token,
     required this.name,
     required this.email,
     required this.role,
+    //required this.image,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -76,6 +108,7 @@ class Data {
         name: json["name"],
         email: json["email"],
         role: json["role"],
+        //image: json["image"],
       );
 
   Map<String, dynamic> toJson() => {
