@@ -4,6 +4,7 @@ import 'package:agrotalk/models/api_response.dart';
 import 'package:agrotalk/models/topic.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:agrotalk/services/user_service.dart';
 
 String? id;
 String? nama_topik;
@@ -14,11 +15,10 @@ Future createTopic(String nama_topik) async {
   final String? action = prefs.getString('id');
 
   try {
-    var url = "http://192.168.100.60:8000/api/topics";
+    var url = "http://192.168.186.188:8000/api/topics";
     var body = {"nama_topik": nama_topik};
     var token = prefs.getString('token')?.split("|")[1];
     // return print(body);
-    print(token);
     var hasil = await http.post(Uri.parse(url), body: body, headers: {
       "Accept": "Application/Json",
       "Authorization": 'Bearer $token'
@@ -48,16 +48,16 @@ Future createTopic(String nama_topik) async {
 
 Future getTopics() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final String? action = prefs.getString('id');
   try {
-    var url = "http://192.168.100.60:8000/api/topics";
-    var body = {"nama_topik": nama_topik};
-    var token = prefs.getString('token')?.split("|")[1];
+    var url = "http://192.168.186.188:8000/api/topics";
+    var token = await getToken();
+    print(token);
     var hasil = await http.get(Uri.parse(url), headers: {
       "Accept": "Application/Json",
       "Authorization": 'Bearer $token'
     });
     print(json.decode(hasil.body));
-
     return json.decode(hasil.body);
   } catch (e) {
     print(e.toString());

@@ -1,5 +1,34 @@
 import 'dart:convert';
 
+RegisterModel registerModelFromJson(String str) =>
+    RegisterModel.fromJson(json.decode(str));
+
+String registerModelToJson(RegisterModel data) => json.encode(data.toJson());
+
+class RegisterModel {
+  bool success;
+  String message;
+  Data data;
+
+  RegisterModel({
+    required this.success,
+    required this.message,
+    required this.data,
+  });
+
+  factory RegisterModel.fromJson(Map<String, dynamic> json) => RegisterModel(
+        success: json["success"],
+        message: json["message"],
+        data: Data.fromJson(json["data"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "success": success,
+        "message": message,
+        "data": data.toJson(),
+      };
+}
+
 LoginModel loginModelFromJson(String str) =>
     LoginModel.fromJson(json.decode(str));
 

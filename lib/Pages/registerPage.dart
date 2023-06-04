@@ -1,4 +1,5 @@
 import 'package:agrotalk/Pages/LoginPage.dart';
+import 'package:agrotalk/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'User Page/LandingPageUser.dart';
 
@@ -10,6 +11,31 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  TextEditingController name = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController confirmpassword = TextEditingController();
+  bool loading = false;
+
+  void registbutton() {
+    setState(() {
+      loading = true;
+    });
+    iniRegister(name.text, email.text, password.text).then((value) {
+      setState(() {
+        print(value);
+        if (value == "success") {
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => LoginPage()),
+              (route) => false);
+        } else {
+          print("Periksa kembali");
+        }
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,35 +68,41 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    hintText: 'Nama',
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    hintText: 'Email',
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-                child: TextFormField(
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    hintText: 'Password',
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-                child: TextFormField(
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    hintText: 'Konfirmasi Password',
+                child: Form(
+                  key: formkey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: name,
+                        decoration: const InputDecoration(
+                          hintText: 'Nama',
+                        ),
+                      ),
+                      TextFormField(
+                        controller: email,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: const InputDecoration(
+                          hintText: 'Email',
+                        ),
+                      ),
+                      TextFormField(
+                        controller: password,
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          hintText: 'Password',
+                        ),
+                      ),
+                      TextFormField(
+                        controller: confirmpassword,
+                        validator: (value) {
+                          value == password;
+                        },
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          hintText: 'Konfirmasi Password',
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -81,12 +113,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LandingPageUser(),
-                      ),
-                    );
+                    if (formkey.currentState!.validate()) {
+                      setState(() {
+                        loading = true;
+                        registbutton();
+                      });
+                    }
                   },
                   color: const Color(0xFF4F7D43),
                   textColor: Colors.white,

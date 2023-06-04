@@ -37,6 +37,8 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) => LandingPageUser()),
               (route) => false);
+        } else if (value == "Null") {
+          print("Periksa kembali");
         }
       });
     });

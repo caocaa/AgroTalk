@@ -6,16 +6,22 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'TopicsModel.dart';
 import 'AddTopicPage.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomePageAdmin extends StatefulWidget {
+  const HomePageAdmin({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePageAdmin> createState() => _HomePageAdminState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageAdminState extends State<HomePageAdmin> {
   get FlatButton => null;
 //late (TopicModel) topicModel;
+
+  void initState() {
+    getTopics();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -181,27 +187,31 @@ class _HomePageState extends State<HomePage> {
                             spacing: 4.0,
                             runSpacing: 4.0,
                             children: List<Widget>.generate(
-                                snapshot.data['data'].length, (index) {
-                              return Chip(
-                                backgroundColor: Color(0xFFA9B489),
-                                label: Text(
-                                  snapshot.data['data'][index]['nama_topik'],
-                                  style: TextStyle(
-                                    fontFamily: 'Lato',
-                                    fontSize: 10,
-                                    fontStyle: FontStyle.italic,
+                              snapshot.data['data'].length,
+                              (int index) {
+                                growable:
+                                true;
+                                return Chip(
+                                  backgroundColor: Color(0xFFA9B489),
+                                  label: Text(
+                                    snapshot.data['data'][index]['nama_topik'],
+                                    style: TextStyle(
+                                      fontFamily: 'Lato',
+                                      fontSize: 10,
+                                      fontStyle: FontStyle.italic,
+                                    ),
                                   ),
-                                ),
-                              );
-                              // deleteIcon: Icon(
-                              //   Icons.cancel_outlined,
-                              //   color: const Color(0xFF4F7D43),
-                              //   size: 15,
-                              // ),
-                              // onDeleted: () {
-                              //   print('deleted');
-                              // },);
-                            }),
+                                );
+                                // deleteIcon: Icon(
+                                //   Icons.cancel_outlined,
+                                //   color: const Color(0xFF4F7D43),
+                                //   size: 15,
+                                // ),
+                                // onDeleted: () {
+                                //   print('deleted');
+                                // },);
+                              },
+                            ),
                           );
                         } else {
                           return Text('Tunggu');
