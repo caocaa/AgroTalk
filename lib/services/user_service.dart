@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 import 'package:agrotalk/models/api_response.dart';
+import 'package:agrotalk/models/count.dart';
 import 'package:agrotalk/models/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -87,6 +88,23 @@ Future getUser() async {
       "Authorization": 'Bearer $token'
     });
     final data = userFromJson(hasil.body);
+    return data;
+  } catch (e) {
+    print(e.toString());
+  }
+}
+
+Future getUserCount() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final String? action = prefs.getString('id');
+  try {
+    var url = "http://192.168.186.188:8000/api/countuser";
+    var token = await getToken();
+    var hasil = await http.get(Uri.parse(url), headers: {
+      "Accept": "Application/Json",
+      "Authorization": 'Bearer $token'
+    });
+    final data = countFromJson(hasil.body);
     return data;
   } catch (e) {
     print(e.toString());

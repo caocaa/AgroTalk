@@ -1,3 +1,4 @@
+import 'package:agrotalk/models/count.dart';
 import 'package:agrotalk/models/groker.dart';
 import 'package:agrotalk/services/user_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -52,6 +53,23 @@ Future getGrokers() async {
     print(hasil.body);
     final data = grokerFromJson(hasil.body);
     return (data);
+  } catch (e) {
+    print(e.toString());
+  }
+}
+
+Future getGrokerCount() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final String? action = prefs.getString('id');
+  try {
+    var url = "http://192.168.186.188:8000/api/countgroker";
+    var token = await getToken();
+    var hasil = await http.get(Uri.parse(url), headers: {
+      "Accept": "Application/Json",
+      "Authorization": 'Bearer $token'
+    });
+    final data = countFromJson(hasil.body);
+    return data;
   } catch (e) {
     print(e.toString());
   }

@@ -1,6 +1,10 @@
 import 'package:agrotalk/Pages/Admin%20Page/AddTopicPage.dart';
+import 'package:agrotalk/models/count.dart';
 import 'package:agrotalk/models/topic.dart';
+import 'package:agrotalk/models/user.dart';
+import 'package:agrotalk/services/groker_service.dart';
 import 'package:agrotalk/services/topic_service.dart';
+import 'package:agrotalk/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'TopicsModel.dart';
@@ -15,11 +19,35 @@ class HomePageAdmin extends StatefulWidget {
 
 class _HomePageAdminState extends State<HomePageAdmin> {
   get FlatButton => null;
-//late (TopicModel) topicModel;
+
+  Count? usercount;
+  Count? grokercount;
 
   void initState() {
     getTopics();
+    getCountUser();
+    getCountGroker();
     super.initState();
+  }
+
+  void getCountUser() {
+    getUserCount().then((value) {
+      print(value);
+      setState(() {
+        usercount = value;
+        print(usercount);
+      });
+    });
+  }
+
+  void getCountGroker() {
+    getGrokerCount().then((value) {
+      print(value);
+      setState(() {
+        grokercount = value;
+        print(grokercount);
+      });
+    });
   }
 
   @override
@@ -60,27 +88,31 @@ class _HomePageAdminState extends State<HomePageAdmin> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "12.358",
-                          style: TextStyle(
-                            fontSize: 26,
-                            color: Colors.black,
-                            fontFamily: "Lato",
-                          ),
+                  (usercount == null)
+                      ? Container(
+                          child: CircularProgressIndicator(),
                         )
-                      ],
-                    ),
-                    height: 75.0,
-                    width: 200.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      color: const Color(0xFFBA9470),
-                    ),
-                  ),
+                      : Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                usercount!.data.toString(),
+                                style: TextStyle(
+                                  fontSize: 26,
+                                  color: Colors.black,
+                                  fontFamily: "Lato",
+                                ),
+                              )
+                            ],
+                          ),
+                          height: 75.0,
+                          width: 200.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: const Color(0xFFBA9470),
+                          ),
+                        ),
                 ],
               ),
               Padding(
@@ -90,7 +122,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "Pengguna Aktif",
+                      "Banyak Groker",
                       style: TextStyle(
                           fontSize: 20,
                           color: Colors.black,
@@ -103,26 +135,30 @@ class _HomePageAdminState extends State<HomePageAdmin> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "4.132",
-                          style: TextStyle(
-                              fontSize: 26,
-                              color: Colors.black,
-                              fontFamily: "Lato"),
+                  (grokercount == null)
+                      ? Container(
+                          child: CircularProgressIndicator(),
                         )
-                      ],
-                    ),
-                    height: 75.0,
-                    width: 200.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      color: const Color(0xFFBA9470),
-                    ),
-                  ),
+                      : Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                grokercount!.data.toString(),
+                                style: TextStyle(
+                                    fontSize: 26,
+                                    color: Colors.black,
+                                    fontFamily: "Lato"),
+                              )
+                            ],
+                          ),
+                          height: 75.0,
+                          width: 200.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: const Color(0xFFBA9470),
+                          ),
+                        ),
                 ],
               ),
               Padding(
@@ -201,15 +237,17 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                                       fontStyle: FontStyle.italic,
                                     ),
                                   ),
+                                  deleteIcon: Icon(
+                                    Icons.cancel_outlined,
+                                    color: const Color(0xFF4F7D43),
+                                    size: 15,
+                                  ),
+                                  onDeleted: () {
+                                    var id = snapshot.data['data'][index]['id'];
+                                    deleteTopics(id);
+                                    setState(() {});
+                                  },
                                 );
-                                // deleteIcon: Icon(
-                                //   Icons.cancel_outlined,
-                                //   color: const Color(0xFF4F7D43),
-                                //   size: 15,
-                                // ),
-                                // onDeleted: () {
-                                //   print('deleted');
-                                // },);
                               },
                             ),
                           );
