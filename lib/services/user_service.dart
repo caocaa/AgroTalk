@@ -86,8 +86,8 @@ Future getUser() async {
       "Accept": "Application/Json",
       "Authorization": 'Bearer $token'
     });
-    print(json.decode(hasil.body));
-    return json.decode(hasil.body);
+    final data = userFromJson(hasil.body);
+    return data;
   } catch (e) {
     print(e.toString());
   }

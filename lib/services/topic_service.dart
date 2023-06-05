@@ -17,7 +17,7 @@ Future createTopic(String nama_topik) async {
   try {
     var url = "http://192.168.186.188:8000/api/topics";
     var body = {"nama_topik": nama_topik};
-    var token = prefs.getString('token')?.split("|")[1];
+    var token = prefs.getString('token');
     // return print(body);
     var hasil = await http.post(Uri.parse(url), body: body, headers: {
       "Accept": "Application/Json",
@@ -36,7 +36,6 @@ Future createTopic(String nama_topik) async {
       print(hasil.body);
       id = topicModelFromJson(hasil.body).data.id;
       nama_topik = topicModelFromJson(hasil.body).data.nama_topik;
-
       return nama_topik;
     }
   } catch (e) {
@@ -52,11 +51,11 @@ Future getTopics() async {
   try {
     var url = "http://192.168.186.188:8000/api/topics";
     var token = await getToken();
-    print(token);
     var hasil = await http.get(Uri.parse(url), headers: {
       "Accept": "Application/Json",
       "Authorization": 'Bearer $token'
     });
+    print(hasil.body);
     return json.decode(hasil.body);
   } catch (e) {
     print(e.toString());
