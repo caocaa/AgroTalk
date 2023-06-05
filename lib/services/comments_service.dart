@@ -25,7 +25,7 @@ Future createTopic(String comment) async {
     print(hasil.statusCode.toString());
 
     if (hasil.statusCode != 200) {
-      print("error tambah komentar");
+      print("Error tambah komentar");
       return hasil.statusCode.toString();
     }
 
