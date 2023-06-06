@@ -1,8 +1,9 @@
+import 'package:agrotalk/models/article.dart';
+import 'package:agrotalk/services/article_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:image_card/image_card.dart';
-
 import 'NewsDetailPage.dart';
 
 class NewsPage extends StatefulWidget {
@@ -13,6 +14,22 @@ class NewsPage extends StatefulWidget {
 }
 
 class _NewsPageState extends State<NewsPage> {
+  Article? article;
+
+  void initState() {
+    super.initState();
+    getArticless();
+  }
+
+  void getArticless() {
+    getArticles().then((value) {
+      print(value);
+      setState(() {
+        article = value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +77,7 @@ class _NewsPageState extends State<NewsPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "Banyak Dibaca",
+                      "Artikel Terbaru",
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.black,
@@ -79,217 +96,96 @@ class _NewsPageState extends State<NewsPage> {
               //   title: _title(color: Colors.white),
               //   description: _content(color: Colors.white),
               // ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const NewsDetailPage(),
-                            ),
-                          );
-                        },
-                        child: TransparentImageCard(
-                          width: 200,
-                          imageProvider:
-                              AssetImage('assets/image/artikel b.jpg'),
-                          tags: [
-                            Text(
-                              'Pupuk',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 10),
-                            ),
-                          ],
-                          title: Text(
-                            'Rekomendasi pupuk untuk pohon mangga',
-                            style: TextStyle(color: Colors.white, fontSize: 14),
+              (article == null)
+                  ? Container(
+                      child: Center(child: CircularProgressIndicator()),
+                    )
+                  : Row(
+                      children: [
+                        Expanded(
+                          child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemCount: article!.data.length,
+                            itemBuilder: (context, index) {
+                              print(article?.data.length);
+                              var articledata = article!.data[index];
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const NewsDetailPage(),
+                                          ),
+                                        );
+                                      },
+                                      child: TransparentImageCard(
+                                        width: 250,
+                                        height: 200,
+                                        imageProvider: NetworkImage(
+                                            'http://192.168.1.193:8000/gambar'),
+                                        // tags: [
+                                        //   Text(
+                                        //     'Pupuk',
+                                        //     style: TextStyle(
+                                        //         color: Colors.white,
+                                        //         fontSize: 10),
+                                        //   ),
+                                        // ],
+                                        title: Text(
+                                          articledata!.judul,
+                                          style: TextStyle(
+                                              color: Color.fromRGBO(
+                                                  255, 255, 255, 1),
+                                              fontSize: 14),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
                           ),
                         ),
-                      ),
+                      ],
                     ),
-               Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const NewsDetailPage(),
-                            ),
-                          );
-                        },
-                        child: TransparentImageCard(
-                          width: 200,
-                          imageProvider:
-                              AssetImage('assets/image/artikel c.jpg'),
-                          tags: [
-                            Text(
-                              'Pupuk',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 10),
-                            ),
-                          ],
-                          title: Text(
-                            'Rekomendasi pupuk untuk pohon mangga',
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              //Artikel Populer (Banyak Disukai)
-              Container(
-                decoration: BoxDecoration(
-                  color: Color(0xFFDEE5CB),
-                ),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Populer",
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: "Lato"),
-                          ),
-                        ],
-                      ),
-                    ),
-                    // TransparentImageCard(
-                    //   width: 200,
-                    //   imageProvider: AssetImage('assets/mockup.png'),
-                    //   tags: [
-                    //     _tag('Product', () {}),
-                    //   ],
-                    //   title: _title(color: Colors.white),
-                    //   description: _content(color: Colors.white),
-                    // ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          TransparentImageCard(
-                            imageProvider:
-                                AssetImage('assets/image/artikel d.jpg'),
-                            tags: [
-                              Text(
-                                'Pupuk',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 10),
-                              ),
-                            ],
-                            title: Text(
-                              'Rekomendasi pupuk untuk pohon mangga',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 14),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              //Artikel terbaru
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Terbaru",
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "Lato"),
-                    ),
-                  ],
-                ),
-              ),
-              // TransparentImageCard(
-              //   width: 200,
-              //   imageProvider: AssetImage('assets/mockup.png'),
-              //   tags: [
-              //     _tag('Product', () {}),
+              //     Padding(
+              //       padding: const EdgeInsets.all(8.0),
+              //       child: InkWell(
+              //         onTap: () {
+              //           Navigator.push(
+              //             context,
+              //             MaterialPageRoute(
+              //               builder: (context) => const NewsDetailPage(),
+              //             ),
+              //           );
+              //         },
+              //         child: TransparentImageCard(
+              //           width: 200,
+              //           imageProvider:
+              //               AssetImage('assets/image/artikel c.jpg'),
+              //           tags: [
+              //             Text(
+              //               'Pupuk',
+              //               style:
+              //                   TextStyle(color: Colors.white, fontSize: 10),
+              //             ),
+              //           ],
+              //           title: Text(
+              //             'Rekomendasi pupuk untuk pohon mangga',
+              //             style: TextStyle(color: Colors.white, fontSize: 14),
+              //           ),
+              //         ),
+              //       ),
+              //     ),
               //   ],
-              //   title: _title(color: Colors.white),
-              //   description: _content(color: Colors.white),
               // ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FillImageCard(
-                          color: Color(0xFFDEE5CB),
-                          width: 200,
-                          heightImage: 140,
-                          imageProvider:
-                              AssetImage('assets/image/artikel a.jpg'),
-                          tags: [
-                            Text(
-                              'Pupuk',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 10),
-                            ),
-                          ],
-                          title: Text(
-                            'Rekomendasi pupuk untuk pohon mangga',
-                            style: TextStyle(color: Colors.black, fontSize: 14),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FillImageCard(
-                          color: Color(0xFFDEE5CB),
-                          width: 200,
-                          heightImage: 140,
-                          imageProvider:
-                              AssetImage('assets/image/artikel a.jpg'),
-                          tags: [
-                            Text(
-                              'Pupuk',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 10),
-                            ),
-                          ],
-                          title: Text(
-                            'Rekomendasi pupuk untuk pohon mangga',
-                            style: TextStyle(color: Colors.black, fontSize: 14),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
             ],
           ),
         ),

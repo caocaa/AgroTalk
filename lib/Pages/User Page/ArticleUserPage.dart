@@ -1,3 +1,5 @@
+import 'package:agrotalk/models/article.dart';
+import 'package:agrotalk/services/article_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -11,6 +13,23 @@ class ArticleUserPage extends StatefulWidget {
 }
 
 class _ArticleUserPageState extends State<ArticleUserPage> {
+  Article? article;
+
+  void initState() {
+    super.initState();
+    getArticless();
+  }
+
+  void getArticless() {
+    getArticles().then((value) {
+      print(value);
+      setState(() {
+        article = value;
+        print(article?.data.first.judul);
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

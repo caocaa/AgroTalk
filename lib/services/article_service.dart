@@ -1,23 +1,18 @@
-import 'dart:convert';
-import 'dart:ui';
-import 'package:agrotalk/Pages/Admin%20Page/LandingPage.dart';
-import 'package:agrotalk/models/api_response.dart';
-import 'package:agrotalk/models/topic.dart';
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:agrotalk/models/count.dart';
+import 'package:agrotalk/models/article.dart';
 import 'package:agrotalk/services/user_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
-String? id;
-String? nama_topik;
+//create Article
 
-//create topic
-Future createTopic(String nama_topik) async {
+Future createArticle(String pertanyaan) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String? action = prefs.getString('id');
 
   try {
-    var url = "http://192.168.1.193/api/topics";
-    var body = {"nama_topik": nama_topik};
+    var url = "http://192.168.1.193/api/Article";
+    var body = {"pertanyaan": pertanyaan};
     var token = prefs.getString('token');
     // return print(body);
     var hasil = await http.post(Uri.parse(url), body: body, headers: {
@@ -35,48 +30,65 @@ Future createTopic(String nama_topik) async {
     if (hasil.statusCode == 200) {
       print("Sukses tambah topik");
       print(hasil.body);
-      id = topicModelFromJson(hasil.body).data.id;
-      nama_topik = topicModelFromJson(hasil.body).data.nama_topik;
-      return nama_topik;
+      return pertanyaan;
     }
   } catch (e) {
     print(e.toString());
   }
 }
 
-//get topic
+//get article
 
-Future getTopics() async {
+Future getArticles() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String? action = prefs.getString('id');
   try {
-    var url = "http://192.168.1.193/api/topics";
+    var url = "http://192.168.1.193/api/article";
     var token = await getToken();
+    print(token);
     var hasil = await http.get(Uri.parse(url), headers: {
       "Accept": "Application/Json",
       "Authorization": 'Bearer $token'
     });
     print(hasil.body);
-    return json.decode(hasil.body);
+    final data = articleFromJson(hasil.body);
+    return (data);
   } catch (e) {
     print(e.toString());
   }
 }
 
-//delete topic
-
-Future deleteTopics(int id) async {
+Future getArticleCount() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final String? action = prefs.getString('id');
   try {
-    var url = "http://192.168.1.193/api/topics/$id";
-    print(url);
+    var url = "http://192.168.1.193/api/countArticle";
     var token = await getToken();
-    var hasil = await http.delete(Uri.parse(url), headers: {
+    var hasil = await http.get(Uri.parse(url), headers: {
       "Accept": "Application/Json",
       "Authorization": 'Bearer $token'
     });
-    print(hasil.body);
+    final data = countFromJson(hasil.body);
+    return data;
   } catch (e) {
     print(e.toString());
   }
 }
+
+// Future getArticles() async {
+//   final SharedPreferences prefs = await SharedPreferences.getInstance();
+//   final String? action = prefs.getString('id');
+//   try {
+//     var url = "http://192.168.1.193/api/Articleshow";
+//     var token = await getToken();
+//     print(token);
+//     var hasil = await http.get(Uri.parse(url), headers: {
+//       "Accept": "Application/Json",
+//       "Authorization": 'Bearer $token'
+//     });
+//     print(hasil.body);
+//     return (hasil.body);
+//   } catch (e) {
+//     print(e.toString());
+//   }
+// }

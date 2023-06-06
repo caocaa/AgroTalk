@@ -13,7 +13,7 @@ Future iniRegister(String name, String email, String password) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   // final String? action = prefs.getString('token');
   try {
-    var url = "http://192.168.186.188:8000/api/register";
+    var url = "http://192.168.1.193/api/register";
     var body = {"name": name, "email": email, "password": password};
 
     var hasil = await http.post(Uri.parse(url), body: body);
@@ -50,7 +50,7 @@ Future iniLogin(String email, String password) async {
   final String? action = prefs.getString('token');
 
   try {
-    var url = "http://192.168.186.188:8000/api/login";
+    var url = "http://192.168.1.193/api/login";
     var body = {"email": email, "password": password};
     // return print(body);
     var hasil = await http.post(Uri.parse(url), body: body);
@@ -81,7 +81,7 @@ Future getUser() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String? action = prefs.getString('id');
   try {
-    var url = "http://192.168.186.188:8000/api/user";
+    var url = "http://192.168.1.193/api/user";
     var token = await getToken();
     var hasil = await http.get(Uri.parse(url), headers: {
       "Accept": "Application/Json",
@@ -98,7 +98,7 @@ Future getUserCount() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String? action = prefs.getString('id');
   try {
-    var url = "http://192.168.186.188:8000/api/countuser";
+    var url = "http://192.168.1.193/api/countuser";
     var token = await getToken();
     var hasil = await http.get(Uri.parse(url), headers: {
       "Accept": "Application/Json",

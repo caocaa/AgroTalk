@@ -33,7 +33,7 @@ class _TopicScrollState extends State<TopicScroll> {
                       children: List<Widget>.generate(
                           snapshot.data['data'].length, (index) {
                         return Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(4.0),
                           child: Chip(
                             backgroundColor: Color(0xFFA9B489),
                             label: Text(

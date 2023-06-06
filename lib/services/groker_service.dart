@@ -11,7 +11,7 @@ Future createGroker(String pertanyaan) async {
   final String? action = prefs.getString('id');
 
   try {
-    var url = "http://192.168.186.188:8000/api/groker";
+    var url = "http://192.168.1.193/api/groker";
     var body = {"pertanyaan": pertanyaan};
     var token = prefs.getString('token');
     // return print(body);
@@ -43,7 +43,7 @@ Future getGrokers() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String? action = prefs.getString('id');
   try {
-    var url = "http://192.168.186.188:8000/api/grokershow";
+    var url = "http://192.168.1.193/api/grokershow";
     var token = await getToken();
     print(token);
     var hasil = await http.get(Uri.parse(url), headers: {
@@ -62,7 +62,7 @@ Future getGrokerCount() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String? action = prefs.getString('id');
   try {
-    var url = "http://192.168.186.188:8000/api/countgroker";
+    var url = "http://192.168.1.193/api/countgroker";
     var token = await getToken();
     var hasil = await http.get(Uri.parse(url), headers: {
       "Accept": "Application/Json",
@@ -79,7 +79,7 @@ Future getGrokerCount() async {
 //   final SharedPreferences prefs = await SharedPreferences.getInstance();
 //   final String? action = prefs.getString('id');
 //   try {
-//     var url = "http://192.168.186.188:8000/api/grokershow";
+//     var url = "http://192.168.1.193/api/grokershow";
 //     var token = await getToken();
 //     print(token);
 //     var hasil = await http.get(Uri.parse(url), headers: {

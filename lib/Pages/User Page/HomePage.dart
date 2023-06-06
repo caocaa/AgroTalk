@@ -52,23 +52,23 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color.fromARGB(54, 238, 238, 220),
-                Color.fromARGB(174, 222, 229, 210),
-              ]),
-        ),
-        child: (groker == null)
-            ? Container(
-                child: CircularProgressIndicator(),
-              )
-            : Column(
+      body: (groker == null)
+          ? Container(
+              child: Center(child: CircularProgressIndicator()),
+            )
+          : Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color.fromARGB(54, 238, 238, 220),
+                      Color.fromARGB(174, 222, 229, 210),
+                    ]),
+              ),
+              child: Column(
                 children: [
                   Container(
                     padding: const EdgeInsets.fromLTRB(12.0, 8.0, 12.0, 0.0),
@@ -192,7 +192,9 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                             ),
                                             Text(
-                                              grokerdata!.createdAt.toString(),
+                                              grokerdata!.createdAt
+                                                  .toString()
+                                                  .substring(0, 19),
                                               style: TextStyle(
                                                 color: Colors.grey,
                                               ),
@@ -251,7 +253,7 @@ class _HomePageState extends State<HomePage> {
                   )),
                 ],
               ),
-      ),
+            ),
     );
   }
 }

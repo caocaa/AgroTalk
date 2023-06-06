@@ -43,7 +43,7 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
         ),
         child: (user == null)
             ? Container(
-                child: CircularProgressIndicator(),
+                child: Center(child: CircularProgressIndicator()),
               )
             : Container(
                 child: Column(
