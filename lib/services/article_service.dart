@@ -11,7 +11,7 @@ Future createArticle(String pertanyaan) async {
   final String? action = prefs.getString('id');
 
   try {
-    var url = "http://192.168.1.193/api/Article";
+    var url = "http://172.34.3.180:8000/api/Article";
     var body = {"pertanyaan": pertanyaan};
     var token = prefs.getString('token');
     // return print(body);
@@ -43,7 +43,7 @@ Future getArticles() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String? action = prefs.getString('id');
   try {
-    var url = "http://192.168.1.193/api/article";
+    var url = "http://172.34.3.180:8000/api/article";
     var token = await getToken();
     print(token);
     var hasil = await http.get(Uri.parse(url), headers: {
@@ -62,7 +62,7 @@ Future getArticleCount() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String? action = prefs.getString('id');
   try {
-    var url = "http://192.168.1.193/api/countArticle";
+    var url = "http://172.34.3.180:8000/api/countArticle";
     var token = await getToken();
     var hasil = await http.get(Uri.parse(url), headers: {
       "Accept": "Application/Json",
@@ -79,7 +79,7 @@ Future getArticleCount() async {
 //   final SharedPreferences prefs = await SharedPreferences.getInstance();
 //   final String? action = prefs.getString('id');
 //   try {
-//     var url = "http://192.168.1.193/api/Articleshow";
+//     var url = "http://172.34.3.180:8000/api/Articleshow";
 //     var token = await getToken();
 //     print(token);
 //     var hasil = await http.get(Uri.parse(url), headers: {

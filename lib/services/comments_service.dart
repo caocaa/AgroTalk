@@ -13,7 +13,7 @@ Future createTopic(String comment) async {
   final String? action = prefs.getString('id');
 
   try {
-    var url = "http://192.168.1.193:8000/api/groker/1/comments";
+    var url = "http://172.34.3.180:8000/api/groker/1/comments";
     var body = {"comment": comment};
     var token = prefs.getString('token')?.split("|")[1];
     // return print(body);

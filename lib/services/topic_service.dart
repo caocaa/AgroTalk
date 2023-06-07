@@ -16,7 +16,7 @@ Future createTopic(String nama_topik) async {
   final String? action = prefs.getString('id');
 
   try {
-    var url = "http://192.168.1.193/api/topics";
+    var url = "http://172.34.3.180:8000/api/topics";
     var body = {"nama_topik": nama_topik};
     var token = prefs.getString('token');
     // return print(body);
@@ -50,7 +50,7 @@ Future getTopics() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String? action = prefs.getString('id');
   try {
-    var url = "http://192.168.1.193/api/topics";
+    var url = "http://172.34.3.180:8000/api/topics";
     var token = await getToken();
     var hasil = await http.get(Uri.parse(url), headers: {
       "Accept": "Application/Json",
@@ -68,7 +68,7 @@ Future getTopics() async {
 Future deleteTopics(int id) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   try {
-    var url = "http://192.168.1.193/api/topics/$id";
+    var url = "http://172.34.3.180:8000/api/topics/$id";
     print(url);
     var token = await getToken();
     var hasil = await http.delete(Uri.parse(url), headers: {

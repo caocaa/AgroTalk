@@ -129,7 +129,7 @@ class _NewsPageState extends State<NewsPage> {
                                         width: 250,
                                         height: 200,
                                         imageProvider: NetworkImage(
-                                            'http://192.168.1.193:8000/gambar'),
+                                            'http://172.34.3.180:8000/gambar/${articledata.gambar}'),
                                         // tags: [
                                         //   Text(
                                         //     'Pupuk',

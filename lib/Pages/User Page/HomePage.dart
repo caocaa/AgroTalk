@@ -17,6 +17,9 @@ class _HomePageState extends State<HomePage> {
   bool loading = false;
 
   Groker? groker;
+  Color _colorlike = Colors.grey;
+  Color _colorcomment = Colors.grey;
+  Color _colorreport = Colors.grey;
 
   void initState() {
     super.initState();
@@ -153,104 +156,161 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
-                  Expanded(
-                      child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: groker?.groker.length,
-                    itemBuilder: (context, index) {
-                      print(groker?.groker.length);
-                      var grokerdata = groker!.groker[index];
-                      return Column(
-                        children: [
-                          Container(
-                              child: Column(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                  (groker == null)
+                      ? Expanded(
+                          child: Center(
+                          child: CircularProgressIndicator(),
+                        ))
+                      : Expanded(
+                          child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: groker?.groker.length,
+                          itemBuilder: (context, index) {
+                            print(groker?.groker.length);
+                            var grokerdata = groker!.groker[index];
+                            return Column(
+                              children: [
+                                Container(
+                                    child: Column(
                                   children: [
-                                    Row(
-                                      children: [
-                                        CircleAvatar(
-                                          radius: 20,
-                                          backgroundImage: AssetImage(
-                                              'assets/image/user2.jpg'),
-                                        ),
-                                        SizedBox(width: 10),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              grokerdata!.user.name.toString(),
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
+                                    Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              CircleAvatar(
+                                                radius: 20,
+                                                backgroundImage: AssetImage(
+                                                    'assets/image/user2.jpg'),
                                               ),
-                                            ),
-                                            Text(
-                                              grokerdata!.createdAt
-                                                  .toString()
-                                                  .substring(0, 19),
-                                              style: TextStyle(
-                                                color: Colors.grey,
+                                              SizedBox(width: 10),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    grokerdata!.user.name
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    grokerdata!.createdAt
+                                                        .toString()
+                                                        .substring(0, 19),
+                                                    style: TextStyle(
+                                                      color: Colors.grey,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 10),
+                                          Text(
+                                            grokerdata!.pertanyaan,
+                                            style: TextStyle(
+                                              fontFamily: "LatoBold",
+                                              fontSize: 12,
                                             ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 10),
-                                    Text(
-                                      grokerdata!.pertanyaan,
-                                      style: TextStyle(
-                                        fontFamily: "LatoBold",
-                                        fontSize: 12,
+                                          ),
+                                          (grokerdata!.gambar != null)
+                                              ? Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            5.0),
+                                                    child: Align(
+                                                      alignment: Alignment
+                                                          .bottomCenter,
+                                                      child: Image.asset(
+                                                          'assets/image/post1.jpg'),
+                                                    ),
+                                                  ),
+                                                )
+                                              : Center(
+                                                  child: SizedBox(height: 10),
+                                                ),
+                                          SizedBox(height: 10),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              IconButton(
+                                                  icon: Icon(Icons.thumb_up),
+                                                  iconSize: 15,
+                                                  color: _colorlike,
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      if (_colorlike ==
+                                                          Colors.grey) {
+                                                        _colorlike =
+                                                            Color(0xFF4F7D43);
+                                                      } else {
+                                                        _colorlike =
+                                                            Colors.grey;
+                                                      }
+                                                    });
+                                                  }),
+                                              SizedBox(width: 10),
+                                              IconButton(
+                                                  icon: Icon(Icons.comment),
+                                                  iconSize: 15,
+                                                  color: _colorcomment,
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      if (_colorcomment ==
+                                                          Colors.grey) {
+                                                        _colorcomment =
+                                                            Color(0xFF4F7D43);
+                                                      } else {
+                                                        _colorcomment =
+                                                            Colors.grey;
+                                                      }
+                                                    });
+                                                  }),
+                                              SizedBox(width: 10),
+                                              IconButton(
+                                                  icon: Icon(Icons
+                                                      .report_gmailerrorred_outlined),
+                                                  iconSize: 15,
+                                                  color: _colorreport,
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      if (_colorreport ==
+                                                          Colors.grey) {
+                                                        _colorreport =
+                                                            Color(0xFF4F7D43);
+                                                      } else {
+                                                        _colorreport =
+                                                            Colors.grey;
+                                                      }
+                                                    });
+                                                  }),
+                                              SizedBox(width: 15),
+                                            ],
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    SizedBox(height: 10),
-                                    Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child:
-                                          Image.asset('assets/image/post1.jpg'),
-                                    ),
-                                    SizedBox(height: 10),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Icon(
-                                          Icons.thumb_up,
-                                          size: 15,
-                                        ),
-                                        SizedBox(width: 10),
-                                        Icon(
-                                          Icons.comment,
-                                          size: 15,
-                                        ),
-                                        SizedBox(width: 10),
-                                        Icon(
-                                          Icons.share,
-                                          size: 15,
-                                        ),
-                                        SizedBox(width: 15),
-                                      ],
-                                    ),
+                                    // Text(grokerdata!.pertanyaan),
+                                    // Text(grokerdata!.id.toString()),
+                                    // Text(grokerdata!.idUser.toString()),
+                                    // Text(grokerdata!.createdAt.toString()),
                                   ],
-                                ),
-                              ),
-                              // Text(grokerdata!.pertanyaan),
-                              // Text(grokerdata!.id.toString()),
-                              // Text(grokerdata!.idUser.toString()),
-                              // Text(grokerdata!.createdAt.toString()),
-                            ],
-                          ))
-                        ],
-                      );
-                    },
-                  )),
+                                ))
+                              ],
+                            );
+                          },
+                        )),
                 ],
               ),
             ),
