@@ -15,7 +15,7 @@ Future createComment(String comment) async {
   final int? action = prefs.getInt('id');
 
   try {
-    var url = "http://172.34.4.135:8000/api/groker/1/comments";
+    var url = "http://192.168.1.7:8000/api/groker/1/comments";
     var body = {"comment": comment};
     var token = prefs.getString('token');
     // return print(body);

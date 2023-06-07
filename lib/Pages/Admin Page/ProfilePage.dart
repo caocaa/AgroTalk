@@ -64,8 +64,9 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       body: (user == null)
           ? Container(
+              child: Center(
               child: CircularProgressIndicator(),
-            )
+            ))
           : Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(

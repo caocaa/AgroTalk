@@ -33,7 +33,7 @@ class _TopicScrollState extends State<TopicScroll> {
                       children: List<Widget>.generate(
                           snapshot.data['data'].length, (index) {
                         return Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(4.0),
                           child: Chip(
                             backgroundColor: Color(0xFFA9B489),
                             label: Text(
@@ -46,19 +46,19 @@ class _TopicScrollState extends State<TopicScroll> {
                             ),
                           ),
                         );
-                        // deleteIcon: Icon(
-                        //   Icons.cancel_outlined,
-                        //   color: const Color(0xFF4F7D43),
-                        //   size: 15,
-                        // ),
-                        // onDeleted: () {
-                        //   print('deleted');
-                        // },);
                       }),
                     ),
                   );
                 } else {
-                  return Text('Tunggu');
+                  return Center(
+                    child: Container(
+                      width: 15,
+                      height: 15,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2.0,
+                      ),
+                    ),
+                  );
                 }
               },
             ),

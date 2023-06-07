@@ -1,17 +1,17 @@
 import 'package:agrotalk/models/count.dart';
-import 'package:agrotalk/models/groker.dart';
+import 'package:agrotalk/models/article.dart';
 import 'package:agrotalk/services/user_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-//create groker
+//create Article
 
-Future createGroker(String pertanyaan) async {
+Future createArticle(String pertanyaan) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String? action = prefs.getString('id');
 
   try {
-    var url = "http://172.34.4.135:8000/api/groker";
+    var url = "http://172.34.3.180:8000/api/Article";
     var body = {"pertanyaan": pertanyaan};
     var token = prefs.getString('token');
     // return print(body);
@@ -37,32 +37,32 @@ Future createGroker(String pertanyaan) async {
   }
 }
 
-//get groker
+//get article
 
-Future getGrokers() async {
+Future getArticles() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String? action = prefs.getString('id');
   try {
-    var url = "http://172.34.4.135:8000/api/grokershow";
+    var url = "http://172.34.3.180:8000/api/article";
     var token = await getToken();
     print(token);
     var hasil = await http.get(Uri.parse(url), headers: {
       "Accept": "Application/Json",
       "Authorization": 'Bearer $token'
     });
-    print(grokerFromJson(hasil.body));
-    final data = grokerFromJson(hasil.body);
-    return data;
+    print(hasil.body);
+    final data = articleFromJson(hasil.body);
+    return (data);
   } catch (e) {
     print(e.toString());
   }
 }
 
-Future getGrokerCount() async {
+Future getArticleCount() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String? action = prefs.getString('id');
   try {
-    var url = "http://172.34.4.135:8000/api/countgroker";
+    var url = "http://172.34.3.180:8000/api/countArticle";
     var token = await getToken();
     var hasil = await http.get(Uri.parse(url), headers: {
       "Accept": "Application/Json",
@@ -75,11 +75,11 @@ Future getGrokerCount() async {
   }
 }
 
-// Future getGrokers() async {
+// Future getArticles() async {
 //   final SharedPreferences prefs = await SharedPreferences.getInstance();
 //   final String? action = prefs.getString('id');
 //   try {
-//     var url = "http://172.34.4.135:8000/api/grokershow";
+//     var url = "http://172.34.3.180:8000/api/Articleshow";
 //     var token = await getToken();
 //     print(token);
 //     var hasil = await http.get(Uri.parse(url), headers: {

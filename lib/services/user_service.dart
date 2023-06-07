@@ -11,7 +11,7 @@ String? role;
 // Register
 Future iniRegister(String name, String email, String password) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  // final String? action = prefs.getString('token');
+  final String? action = prefs.getString('token');
   try {
     var url = "http://172.34.4.135:8000/api/register";
     var body = {"name": name, "email": email, "password": password};
@@ -33,8 +33,8 @@ Future iniRegister(String name, String email, String password) async {
         //var statusCode = hasil.statusCode.toString();
         //token = registerModelFromJson(hasil.body).data.token;
         //print(statusCode);
-        // await prefs.setString('token', '$token');
-        return "success";
+        //await prefs.setString('token', '$token');
+        return ("success");
       } else {
         print(registerModelFromJson(hasil.body).message);
       }

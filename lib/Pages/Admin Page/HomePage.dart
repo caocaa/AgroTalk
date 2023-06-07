@@ -252,7 +252,11 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                             ),
                           );
                         } else {
-                          return Text('Tunggu');
+                          return Container(
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
                         }
                       },
                     ),
