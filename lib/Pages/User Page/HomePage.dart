@@ -1,3 +1,4 @@
+import 'package:agrotalk/Pages/User%20Page/CommentPage.dart';
 import 'package:agrotalk/Pages/User%20Page/LandingPageUser.dart';
 import 'package:agrotalk/Pages/User%20Page/TopicScroll.dart';
 import 'package:agrotalk/services/groker_service.dart';
@@ -31,9 +32,9 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         if (value != "Null") {
           print("Groker telah ditambahkan");
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => LandingPageUser()),
-              (route) => false);
+          setState(() {
+            
+          });
         } else {
           print("Tambahkan groker baru");
         }
@@ -224,9 +225,17 @@ class _HomePageState extends State<HomePage> {
                                           size: 15,
                                         ),
                                         SizedBox(width: 10),
-                                        Icon(
-                                          Icons.comment,
-                                          size: 15,
+                                        IconButton(
+                                          icon: Icon(Icons.comment,),
+                                          iconSize: 15, onPressed: () { 
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => CommentPage(grokerid: grokerdata!.id.toInt()),
+                                                ),
+                                              );
+                                           },
+                                        
                                         ),
                                         SizedBox(width: 10),
                                         Icon(
