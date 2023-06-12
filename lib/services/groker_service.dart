@@ -11,7 +11,7 @@ Future createGroker(String pertanyaan) async {
   final String? action = prefs.getString('id');
 
   try {
-    var url = "http://172.34.4.135:8000/api/groker";
+    var url = "http://192.168.1.193:8000/api/groker";
     var body = {"pertanyaan": pertanyaan};
     var token = prefs.getString('token');
     // return print(body);
@@ -43,9 +43,8 @@ Future getGrokers() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String? action = prefs.getString('id');
   try {
-    var url = "http://172.34.4.135:8000/api/grokershow";
+    var url = "http://192.168.1.193:8000/api/grokershow";
     var token = await getToken();
-    print(token);
     var hasil = await http.get(Uri.parse(url), headers: {
       "Accept": "Application/Json",
       "Authorization": 'Bearer $token'
@@ -62,7 +61,7 @@ Future getGrokerCount() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String? action = prefs.getString('id');
   try {
-    var url = "http://172.34.4.135:8000/api/countgroker";
+    var url = "http://192.168.1.193:8000/api/countgroker";
     var token = await getToken();
     var hasil = await http.get(Uri.parse(url), headers: {
       "Accept": "Application/Json",
@@ -75,20 +74,18 @@ Future getGrokerCount() async {
   }
 }
 
-// Future getGrokers() async {
-//   final SharedPreferences prefs = await SharedPreferences.getInstance();
-//   final String? action = prefs.getString('id');
-//   try {
-//     var url = "http://172.34.4.135:8000/api/grokershow";
-//     var token = await getToken();
-//     print(token);
-//     var hasil = await http.get(Uri.parse(url), headers: {
-//       "Accept": "Application/Json",
-//       "Authorization": 'Bearer $token'
-//     });
-//     print(hasil.body);
-//     return (hasil.body);
-//   } catch (e) {
-//     print(e.toString());
-//   }
-// }
+//delete groker
+Future deleteGroker(int id) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  try {
+    var url = "http://192.168.1.193:8000/api/groker/$id";
+    var token = await getToken();
+    var hasil = await http.delete(Uri.parse(url), headers: {
+      "Accept": "Application/Json",
+      "Authorization": 'Bearer $token'
+    });
+    print(hasil.body);
+  } catch (e) {
+    print(e.toString());
+  }
+}

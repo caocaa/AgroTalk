@@ -10,12 +10,12 @@ import 'package:http/http.dart' as http;
 String? comment;
 
 //create comment
-Future createComment(String comment) async {
+Future createComment(String comment, int groker_id) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final int? action = prefs.getInt('id');
 
   try {
-    var url = "http://192.168.1.7:8000/api/groker/1/comments";
+    var url = "http://192.168.1.193:8000/api/groker/$groker_id/comments";
     var body = {"comment": comment};
     var token = prefs.getString('token');
     // return print(body);
@@ -35,16 +35,13 @@ Future createComment(String comment) async {
       print("Komentar dibuat");
       print(hasil.body);
       comment = commentsModelFromJson(hasil.body).comments as String;
-    
 
-   return comment;
+      return comment;
     }
   } catch (e) {
     print(e.toString());
   }
 }
-
-
 
 //get comment
 
@@ -52,7 +49,7 @@ Future getComments(int id_groker) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String? action = prefs.getString('id');
   try {
-    var url = "http://172.34.4.135:8000/api/groker/$id_groker/comments";
+    var url = "http://192.168.1.193:8000/api/groker/$id_groker/comments";
     var token = await getToken();
     var hasil = await http.get(Uri.parse(url), headers: {
       "Accept": "Application/Json",

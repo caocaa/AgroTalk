@@ -18,9 +18,6 @@ class _HomePageState extends State<HomePage> {
   bool loading = false;
 
   Groker? groker;
-  Color _colorlike = Colors.grey;
-  Color _colorcomment = Colors.grey;
-  Color _colorreport = Colors.grey;
 
   void initState() {
     super.initState();
@@ -35,9 +32,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         if (value != "Null") {
           print("Groker telah ditambahkan");
-          setState(() {
-            
-          });
+          setState(() {});
         } else {
           print("Tambahkan groker baru");
         }
@@ -86,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                               padding: const EdgeInsets.all(8.0),
                               child: CircleAvatar(
                                 backgroundImage:
-                                    AssetImage('assets/image/user1.jpg'),
+                                    AssetImage('assets/image/user2.jpg'),
                                 radius: 20.0,
                               ),
                             ),
@@ -136,6 +131,7 @@ class _HomePageState extends State<HomePage> {
                                     setState(() {
                                       loading = true;
                                       addGroker();
+                                      getGrokerss();
                                     });
                                   }
                                 },
@@ -232,8 +228,10 @@ class _HomePageState extends State<HomePage> {
                                                     child: Align(
                                                       alignment: Alignment
                                                           .bottomCenter,
-                                                      child: Image.asset(
-                                                          'assets/image/post1.jpg'),
+                                                      child: Image.network(
+                                                        'http://192.168.1.193:8000/gambar/${grokerdata.gambar}',
+                                                        height: 150,
+                                                      ),
                                                     ),
                                                   ),
                                                 )
@@ -245,57 +243,32 @@ class _HomePageState extends State<HomePage> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.end,
                                             children: [
-                                              IconButton(
-                                                  icon: Icon(Icons.thumb_up),
-                                                  iconSize: 15,
-                                                  color: _colorlike,
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      if (_colorlike ==
-                                                          Colors.grey) {
-                                                        _colorlike =
-                                                            Color(0xFF4F7D43);
-                                                      } else {
-                                                        _colorlike =
-                                                            Colors.grey;
-                                                      }
-                                                    });
-                                                  }),
                                               SizedBox(width: 10),
                                               IconButton(
                                                   icon: Icon(Icons.comment),
                                                   iconSize: 15,
-                                                  color: _colorcomment,
+                                                  color: Colors.grey,
                                                   onPressed: () {
-                                                    setState(() {
-                                                      if (_colorcomment ==
-                                                          Colors.grey) {
-                                                        _colorcomment =
-                                                            Color(0xFF4F7D43);
-                                                      } else {
-                                                        _colorcomment =
-                                                            Colors.grey;
-                                                      }
-                                                    });
+                                                    // print(grokerdata!.id);
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            CommentPage(
+                                                                grokerid:
+                                                                    grokerdata
+                                                                        .id
+                                                                        .toInt()),
+                                                      ),
+                                                    );
                                                   }),
                                               SizedBox(width: 10),
                                               IconButton(
                                                   icon: Icon(Icons
                                                       .report_gmailerrorred_outlined),
                                                   iconSize: 15,
-                                                  color: _colorreport,
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      if (_colorreport ==
-                                                          Colors.grey) {
-                                                        _colorreport =
-                                                            Color(0xFF4F7D43);
-                                                      } else {
-                                                        _colorreport =
-                                                            Colors.grey;
-                                                      }
-                                                    });
-                                                  }),
+                                                  color: Colors.grey,
+                                                  onPressed: () {}),
                                               SizedBox(width: 15),
                                             ],
                                           ),
@@ -303,40 +276,6 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                     SizedBox(height: 10),
-                                    Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child:
-                                          Image.asset('assets/image/post1.jpg'),
-                                    ),
-                                    SizedBox(height: 10),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Icon(
-                                          Icons.thumb_up,
-                                          size: 15,
-                                        ),
-                                        SizedBox(width: 10),
-                                        IconButton(
-                                          icon: Icon(Icons.comment,),
-                                          iconSize: 15, onPressed: () { 
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) => CommentPage(grokerid: grokerdata!.id.toInt()),
-                                                ),
-                                              );
-                                           },
-                                        
-                                        ),
-                                        SizedBox(width: 10),
-                                        Icon(
-                                          Icons.share,
-                                          size: 15,
-                                        ),
-                                        SizedBox(width: 15),
-                                      ],
-                                    ),
                                   ],
                                 ))
                               ],

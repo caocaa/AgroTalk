@@ -21,6 +21,14 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController password = TextEditingController();
   bool loading = false;
 
+  bool _obscureText = true;
+
+  void _toggelPasswordView() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
   void getRoleLogin() {
     setState(() {
       loading = true;
@@ -86,18 +94,25 @@ class _LoginPageState extends State<LoginPage> {
                         validator: (val) =>
                             val!.isEmpty ? 'Invalid email address' : null,
                         decoration: const InputDecoration(
-                          hintText: 'Email',
+                          hintText: 'masukan email',
+                          labelText: 'Email',
                         ),
                       ),
                       TextFormField(
-                        obscureText: true,
+                        obscureText: _obscureText,
                         controller: password,
                         validator: (val) => val!.length < 6
                             ? 'Required at least 6 chars'
                             : null,
-                        decoration: const InputDecoration(
-                          hintText: 'Password',
-                        ),
+                        decoration: InputDecoration(
+                            hintText: 'masukan kata sandi di sini',
+                            labelText: 'Password',
+                            suffix: InkWell(
+                              onTap: _toggelPasswordView,
+                              child: Icon(_obscureText
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                            )),
                       ),
                     ],
                   ),

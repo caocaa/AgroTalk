@@ -51,8 +51,9 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: CircleAvatar(
-                        backgroundImage: AssetImage('assets/image/user1.jpg'),
-                        radius: 50.0,
+                        backgroundImage: NetworkImage(
+                            'http://192.168.1.193:8000/gambar/${user?.image}'),
+                        radius: 100.0,
                       ),
                     ),
                     Container(

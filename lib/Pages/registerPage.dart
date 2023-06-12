@@ -36,6 +36,21 @@ class _RegisterPageState extends State<RegisterPage> {
     });
   }
 
+  bool _obscureText = true;
+  bool _obscureText1 = true;
+
+  void _togglePasswordView() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
+  void _togglePassword() {
+    setState(() {
+      _obscureText1 = !_obscureText1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,21 +90,30 @@ class _RegisterPageState extends State<RegisterPage> {
                       TextFormField(
                         controller: name,
                         decoration: const InputDecoration(
-                          hintText: 'Nama',
+                          hintText: 'masukan nama',
+                          labelText: 'Nama',
                         ),
                       ),
                       TextFormField(
                         controller: email,
                         keyboardType: TextInputType.emailAddress,
                         decoration: const InputDecoration(
-                          hintText: 'Email',
+                          hintText: 'masukan email',
+                          labelText: 'Email',
                         ),
                       ),
                       TextFormField(
                         controller: password,
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          hintText: 'Password',
+                        obscureText: _obscureText,
+                        decoration: InputDecoration(
+                          hintText: 'masukan password',
+                          labelText: 'Password',
+                          suffix: InkWell(
+                            onTap: _togglePasswordView,
+                            child: Icon(_obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                          ),
                         ),
                       ),
                       TextFormField(
@@ -97,9 +121,16 @@ class _RegisterPageState extends State<RegisterPage> {
                         validator: (value) {
                           value == password;
                         },
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          hintText: 'Konfirmasi Password',
+                        obscureText: _obscureText1,
+                        decoration: InputDecoration(
+                          hintText: 'masukan kembali password',
+                          labelText: 'Konfirmasi Password',
+                          suffix: InkWell(
+                            onTap: _togglePassword,
+                            child: Icon(_obscureText1
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                          ),
                         ),
                       ),
                     ],

@@ -88,15 +88,17 @@ class _HomePageAdminState extends State<HomePageAdmin> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  (usercount == null)
-                      ? Container(
-                          child: CircularProgressIndicator(),
-                        )
-                      : Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
+                  Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        (usercount == null)
+                            ? Container(
+                                child: CircularProgressIndicator(
+                                  color: Color.fromARGB(255, 197, 176, 149),
+                                ),
+                              )
+                            : Text(
                                 usercount!.data.toString(),
                                 style: TextStyle(
                                   fontSize: 26,
@@ -104,15 +106,15 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                                   fontFamily: "Lato",
                                 ),
                               )
-                            ],
-                          ),
-                          height: 75.0,
-                          width: 200.0,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: const Color(0xFFBA9470),
-                          ),
-                        ),
+                      ],
+                    ),
+                    height: 75.0,
+                    width: 200.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: const Color(0xFFBA9470),
+                    ),
+                  ),
                 ],
               ),
               Padding(
@@ -135,30 +137,32 @@ class _HomePageAdminState extends State<HomePageAdmin> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  (grokercount == null)
-                      ? Container(
-                          child: CircularProgressIndicator(),
-                        )
-                      : Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
+                  Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        (grokercount == null)
+                            ? Container(
+                                child: CircularProgressIndicator(
+                                  color: Color.fromARGB(255, 197, 176, 149),
+                                ),
+                              )
+                            : Text(
                                 grokercount!.data.toString(),
                                 style: TextStyle(
                                     fontSize: 26,
                                     color: Colors.black,
                                     fontFamily: "Lato"),
                               )
-                            ],
-                          ),
-                          height: 75.0,
-                          width: 200.0,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: const Color(0xFFBA9470),
-                          ),
-                        ),
+                      ],
+                    ),
+                    height: 75.0,
+                    width: 200.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: const Color(0xFFBA9470),
+                    ),
+                  ),
                 ],
               ),
               Padding(
@@ -253,9 +257,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                           );
                         } else {
                           return Container(
-                            child: Center(
-                              child: CircularProgressIndicator(),
-                            ),
+                            child: Center(child: CircularProgressIndicator()),
                           );
                         }
                       },

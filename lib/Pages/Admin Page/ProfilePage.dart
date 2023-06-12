@@ -64,9 +64,8 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       body: (user == null)
           ? Container(
-              child: Center(
-              child: CircularProgressIndicator(),
-            ))
+              child: Center(child: CircularProgressIndicator()),
+            )
           : Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -85,8 +84,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         Padding(
                           padding: const EdgeInsets.all(30.0),
                           child: CircleAvatar(
-                            backgroundImage:
-                                AssetImage('assets/image/user1.jpg'),
+                            backgroundImage: NetworkImage(
+                                'http://192.168.1.193:8000/gambar/${user?.image}'),
                             radius: 100.0,
                           ),
                         ),
